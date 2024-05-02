@@ -1,15 +1,23 @@
-def to_str(list1):
-    res = ""  # Создаем пустую строку
-    while True:  # Цикл повторяться до тех пор, пока не пройдет по всему списку
-        for el in list1:  # Проходим по элементам(el) списка(list1)
-            if isinstance(el, list):  # Проверка на тип элемента, если элемент является списком, то присваеваем list1 текущий элемент
-                list1 = el
-                break
-            else:  # Если же элемент не является списком добавляем его к списку res с "->"
-                res += f"{el} -> "
+def to_str(lst):
+    result = ""
+    stack = [lst]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, list):
+            stack.extend(item[::-1])
         else:
-            break  # Если нет элементов, значит, мы прошли весь список
-    return res[:-4] + " -> None"  # Удаляем последние "->" и добавляем "-> None"
+            result += str(item) + " -> "
+    return result + "None"
+
+# def to_str(lst):
+#     result = ""
+#     for item in lst:
+#         if isinstance(item, list):
+#             result += to_str(item) + "-> "
+#         else:
+#             result += str(item) + " -> "
+#     return result[:-3]
 
 
-print(to_str([1, [2, [3, [4, [5]]]]]))
+
+print(to_str([1, [2, [3, [7, [8]], [4, [5]]]]]))
