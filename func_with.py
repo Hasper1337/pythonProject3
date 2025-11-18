@@ -1,12 +1,12 @@
-from collections.abc import *
+def to_str(nested_list):
+    if isinstance(nested_list, list):
+        result = ""
+        for item in nested_list:
+            result += to_str(item) + " -> "
+        return result.rstrip(" -> ")
+    else:
+        return str(nested_list)
 
 
-def flatten(l):  # Функция была несщядна украдена с темы: https://clck.ru/38txz5
-    for j in l:
-        if isinstance(j, Iterable) and not isinstance(j, (str, bytes)):
-            yield from flatten(j)
-        else:
-            yield j
-
-
-print(*list(flatten([1, [2, [3, [4, [5]]]]])), sep=" -> ", end=" -> None")  # подумать над выводом
+# Пример использования
+print(to_str([1, [2, [3, [7, [8, 9]], [4, [5]]]]]) + " -> None")
